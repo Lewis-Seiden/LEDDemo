@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
   
     //sets up the leds
-    led.setData(buffer);
     led = new AddressableLED(8); // 8 is the port the leds are on
     // 70 leds / 2 leds per index
     buffer = new AddressableLEDBuffer(70);
@@ -38,7 +37,7 @@ public class Robot extends TimedRobot {
     counter = 0;
     hue = 0;
   }
-
+  
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
@@ -47,8 +46,11 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
-
+  public void robotPeriodic() {
+    led.setData(buffer);
+    setLedRainbow();
+  }
+  
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {}
@@ -57,7 +59,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    led();
+    setLedRainbow();
   }
 
   /** This function is called once when the robot is disabled. */
@@ -73,7 +75,7 @@ public class Robot extends TimedRobot {
       buffer.setHSV(i, h, s, v);
     }
   }
-  public void led()
+  public void setLedRainbow()
   {
 
     led.start();
