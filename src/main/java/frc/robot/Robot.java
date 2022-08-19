@@ -18,6 +18,8 @@ public class Robot extends TimedRobot {
   //Creates an led object, and a buffer that we store what colors we want in.
   AddressableLED led;
   AddressableLEDBuffer buffer;
+  int counter;
+  int hue;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -27,11 +29,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
   
     //sets up the leds
+    led.setData(buffer);
     led = new AddressableLED(8); // 8 is the port the leds are on
     // 70 leds / 2 leds per index
     buffer = new AddressableLEDBuffer(70);
     led.setLength(buffer.getLength());
     led.start();
+    counter = 0;
+    hue = 0;
   }
 
   /**
@@ -50,19 +55,40 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    setSolidLEDColor(150, 255, 255);
+  public void teleopPeriodic() 
+  {
+    led();
   }
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {
+  public void disabledInit() 
+  {
     setSolidLEDColor(0, 0, 0);
   }
 
-  private void setSolidLEDColor(int h, int s, int v){
+  public void setSolidLEDColor(int h, int s, int v)
+  {
     for (int i = 0; i < buffer.getLength(); i ++){
       buffer.setHSV(i, h, s, v);
     }
+  }
+  public void led()
+  {
+
+    led.start();
+    counter++;
+    
+    if(counter == 25)
+    {
+        hue = hue + 10;
+        if(hue >= 180)
+        {
+          hue = 0;
+        }
+        counter = 0;
+        setSolidLEDColor(hue, 255, 255);
+    }
+    
   }
 }
