@@ -28,7 +28,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
   
     //sets up the leds
-    led.setData(buffer);
     led = new AddressableLED(8); // 8 is the port the leds are on
     // 70 leds / 2 leds per index
     buffer = new AddressableLEDBuffer(70);
@@ -48,6 +47,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     setBlinkingColor(67, 13, 154);
     setRainbowColor(0, 100, 50);
+    led.setData(buffer);
   }
 
   /** This function is called once when teleop is enabled. */
