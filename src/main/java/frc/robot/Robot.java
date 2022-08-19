@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
     led = new AddressableLED(8); // 8 is the port the leds are on
     // 70 leds / 2 leds per index
     buffer = new AddressableLEDBuffer(70);
+
     led.setLength(buffer.getLength());
     led.start();
     
@@ -45,7 +46,13 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    flashingLights(186, 89, 33, 10);
+    // blindness(2);
+    // setSolidLEDColor(150, 255, 255);
+    // rainbow();
+    led.setData(buffer);
+  }
 
   /** This function is called once when teleop is enabled. */
   @Override
