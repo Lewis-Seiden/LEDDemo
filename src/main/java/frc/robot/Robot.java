@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.Random;
+
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -18,7 +20,7 @@ public class Robot extends TimedRobot {
   //Creates an led object, and a buffer that we store what colors we want in.
   AddressableLED led;
   AddressableLEDBuffer buffer;
-
+  int counter = 0;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
     buffer = new AddressableLEDBuffer(70);
     led.setLength(buffer.getLength());
     led.start();
+    
   }
 
   /**
@@ -51,13 +54,17 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    setSolidLEDColor(150, 255, 255);
+    //flashingLights(186, 89, 33, 10);
+    //blindness(2);
+    //setSolidLEDColor(150, 255, 255);
+    //rainbow;
   }
 
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
     setSolidLEDColor(0, 0, 0);
+    counter = 0;
   }
 
   private void setSolidLEDColor(int h, int s, int v){
@@ -65,4 +72,27 @@ public class Robot extends TimedRobot {
       buffer.setHSV(i, h, s, v);
     }
   }
+
+  private void flashingLights(int h, int s, int v, int p){
+    counter++;
+    if (counter % p < p/2){
+      setSolidLEDColor(h, s, v);
+    }
+    else{
+      setSolidLEDColor(0,0,0);
+    }
+  }
+
+  private void blindness(int p){
+    counter++;
+    if (counter % p > p-1){
+      setSolidLEDColor((int)Math.round(180*Math.random()),255,255);
+    }
+  }
+
+  private void rainbow(){
+    counter++;
+    setSolidLEDColor(counter, 255, 255);
+  }
+
 }
