@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -18,7 +19,7 @@ public class Robot extends TimedRobot {
   //Creates an led object, and a buffer that we store what colors we want in.
   AddressableLED led;
   AddressableLEDBuffer buffer;
-
+  private int counter;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -27,11 +28,13 @@ public class Robot extends TimedRobot {
   public void robotInit() {
   
     //sets up the leds
+    led.setData(buffer);
     led = new AddressableLED(8); // 8 is the port the leds are on
     // 70 leds / 2 leds per index
     buffer = new AddressableLEDBuffer(70);
     led.setLength(buffer.getLength());
     led.start();
+    counter = 0;
   }
 
   /**
@@ -42,7 +45,10 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    setBlinkingColor(67, 13, 154);
+    setRainbowColor(0, 100, 50);
+  }
 
   /** This function is called once when teleop is enabled. */
   @Override
@@ -63,6 +69,35 @@ public class Robot extends TimedRobot {
   private void setSolidLEDColor(int h, int s, int v){
     for (int i = 0; i < buffer.getLength(); i ++){
       buffer.setHSV(i, h, s, v);
+    }
+  }
+  private void setBlinkingColor(int h, int s, int v){
+    counter++;
+    if (counter % 2 == 1) {
+      setSolidLEDColor(h, s, v);
+    } else {
+      setSolidLEDColor(0, 0, 0);
+    }
+
+
+  }
+
+  private void setRainbowColor(int h, int s, int v) {
+    counter++;
+    if (counter % 7 == 1) {
+      setSolidLEDColor(h, s, v); //red
+    } else if (counter % 7 == 2){
+      setSolidLEDColor(h+25, s, v); //orange
+    } else if (counter % 7 == 3){
+      setSolidLEDColor(h+50, s, v); //yellow
+    } else if (counter % 7 == 4){
+      setSolidLEDColor(h+100, s, v); //green
+    } else if (counter % 7 == 5){
+      setSolidLEDColor(h+200, s, v); //blue
+    } else if (counter % 7 == 6){
+      setSolidLEDColor(h+275, s, v); //purple
+    } else {
+      setSolidLEDColor(h+315, s, v); //pink
     }
   }
 }
