@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.nio.Buffer;
-
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -32,8 +30,8 @@ public class LEDSubsystem extends SubsystemBase {
     }
   }
 
-  public void setLED(int hue, int led) {
-    m_ledBuffer.setHSV((led % m_ledBuffer.getLength()), hue % 180, 243, 34);
+  public void setLED(int hue, int whichLed) {
+    m_ledBuffer.setHSV((whichLed % m_ledBuffer.getLength()), (hue % 180), 243, 34);
   }
 
   public int getBufferSize() {
