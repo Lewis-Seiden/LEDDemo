@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
+  LedSubsystem led = new LedSubsystem();
+  LedCommand ledCommand = new LedCommand(led);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
