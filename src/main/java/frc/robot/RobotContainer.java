@@ -25,6 +25,7 @@ public class RobotContainer {
   LEDSubsystem LED;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    LED = new LEDSubsystem();
     // Configure the button bindings
     configureButtonBindings();
   }
