@@ -5,15 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.LED;
+import frc.robot.subsystems.LEDSubsystem;
 
 public class LEDThing extends CommandBase {
   /** Creates a new LEDThing. */
-  frc.robot.subsystems.LED m_LED;
+  LEDSubsystem m_LED;
   private int hue;
 
-  public LEDThing(frc.robot.subsystems.LED LED) {
+  public LEDThing(LEDSubsystem LED) {
     m_LED = LED;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(LED);
@@ -28,8 +27,7 @@ public class LEDThing extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

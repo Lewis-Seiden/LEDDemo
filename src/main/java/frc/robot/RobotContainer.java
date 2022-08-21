@@ -6,8 +6,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.LEDRainbow;
+import frc.robot.commands.LEDRainbowCooler;
+import frc.robot.commands.LEDThing;
+import frc.robot.subsystems.LEDSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -17,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
+  LEDSubsystem LED;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -30,7 +35,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    SmartDashboard.putData("LED Thing", new LEDThing(LED));
+    SmartDashboard.putData("LED Rainbow", new LEDRainbow(LED));
+    SmartDashboard.putData("LED Rainbow Cooler", new LEDRainbowCooler(LED));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -39,6 +48,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand(() -> {});
+    // return new LEDThing(LED);
+    // return new LEDRainbow(LED);
+    // return new LEDRainbowCooler(LED);
+    return new InstantCommand();
   }
 }

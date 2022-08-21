@@ -4,12 +4,20 @@
 
 package frc.robot.commands;
 
+import org.opencv.ml.Ml;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.LEDSubsystem;
 
 public class LEDRainbowCooler extends CommandBase {
   /** Creates a new LEDRainbowCooler. */
-  public LEDRainbowCooler() {
+  LEDSubsystem m_LED;
+
+  public LEDRainbowCooler(LEDSubsystem LED) {
+    m_LED = LED;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(LED);
+
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +26,11 @@ public class LEDRainbowCooler extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    for (int i = 0; i < m_LED.getBufferSize(); i++) {
+      m_LED.setLED((2*i), i);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
