@@ -20,7 +20,7 @@ public class LEDSubsystem extends SubsystemBase {
     m_ledBuffer = new AddressableLEDBuffer(70);
     m_led.setLength(m_ledBuffer.getLength());
 
-
+    m_led.setData(m_ledBuffer);
     m_led.start();
   }
 
@@ -28,10 +28,14 @@ public class LEDSubsystem extends SubsystemBase {
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setHSV(i, (hue % 180), 243, 34);
     }
+
+    m_led.setData(m_ledBuffer);
   }
 
   public void setLED(int hue, int whichLed) {
     m_ledBuffer.setHSV((whichLed % m_ledBuffer.getLength()), (hue % 180), 243, 34);
+    m_led.setData(m_ledBuffer);
+
   }
 
   public int getBufferSize() {
